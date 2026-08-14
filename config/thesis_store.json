@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "version": 1,
+    "note": "SAMPLE / illustrative data. These theses are placeholders for well-known tickers so the system is runnable after cloning. Replace with your own before using for real."
+  },
+  "holdings": {
+    "VOO": {
+      "company_name": "Vanguard S&P 500 ETF",
+      "sector": "ETF (S&P 500)",
+      "bull_case": "Broad, low-cost exposure to the 500 largest US companies; the passive core the rest of the portfolio is measured against.",
+      "bear_case": "Concentrated in US mega-cap technology at the top of the index, so a rotation out of large-cap tech drags the whole position.",
+      "date_written": "2025-01-15",
+      "last_earnings": null
+    },
+    "VWRP": {
+      "company_name": "Vanguard FTSE All-World UCITS ETF (Acc)",
+      "sector": "ETF (All-World)",
+      "bull_case": "Single-line global diversification across developed and emerging markets; the accumulating structure is capital-efficient inside an ISA.",
+      "bear_case": "Still roughly 60% US by weight, so the global label overstates the diversification benefit during a US drawdown.",
+      "date_written": "2025-01-15",
+      "last_earnings": null
+    },
+    "AAPL": {
+      "company_name": "Apple Inc.",
+      "sector": "Big Tech",
+      "bull_case": "Large, sticky installed base with a growing high-margin services line layered on top of hardware.",
+      "bear_case": "Hardware upgrade cycles are lengthening and regulatory pressure on the App Store threatens services economics.",
+      "date_written": "2025-02-01",
+      "last_earnings": null
+    },
+    "MSFT": {
+      "company_name": "Microsoft Corporation",
+      "sector": "Big Tech",
+      "bull_case": "Enterprise software franchise with cloud (Azure) and AI monetisation compounding on top of durable recurring revenue.",
+      "bear_case": "Heavy AI-infrastructure capital spending compresses free cash flow if enterprise AI adoption is slower than guided.",
+      "date_written": "2025-02-01",
+      "last_earnings": null
+    },
+    "GOOGL": {
+      "company_name": "Alphabet Inc.",
+      "sector": "Big Tech",
+      "bull_case": "Dominant search advertising funds cloud growth and AI investment; multiple optionality layers (Cloud, Waymo).",
+      "bear_case": "Antitrust remedies and AI-driven changes to search behaviour threaten the core advertising economics.",
+      "date_written": "2025-03-01",
+      "last_earnings": null
+    },
+    "AMZN": {
+      "company_name": "Amazon.com Inc.",
+      "sector": "Big Tech",
+      "bull_case": "Cloud (AWS) re-acceleration plus a fast-growing advertising business and improving retail margins.",
+      "bear_case": "Very large AI-infrastructure capex weighs on free cash flow and any AWS deceleration compresses the multiple.",
+      "date_written": "2025-03-01",
+      "last_earnings": null
+    },
+    "NVDA": {
+      "company_name": "NVIDIA Corporation",
+      "sector": "Semiconductors",
+      "bull_case": "The default supplier of accelerated-computing hardware and software (CUDA) at the centre of the AI build-out.",
+      "bear_case": "A high bar of expectations; any pause in hyperscaler AI spending or rising competition compresses a stretched multiple.",
+      "date_written": "2025-04-01",
+      "last_earnings": null
+    },
+    "AMD": {
+      "company_name": "Advanced Micro Devices Inc.",
+      "sector": "Semiconductors",
+      "bull_case": "Credible second source for data-centre AI GPUs and CPUs, taking share as customers diversify supply.",
+      "bear_case": "A distant number two with a less mature software ecosystem; export controls and cyclicality add risk.",
+      "date_written": "2025-04-01",
+      "last_earnings": null
+    },
+    "PLTR": {
+      "company_name": "Palantir Technologies Inc.",
+      "sector": "AI / Data Analytics",
+      "bull_case": "Fast commercial growth on its AI platform with a differentiated data-integration moat and government backlog.",
+      "bear_case": "Extreme valuation leaves no margin for error; any deceleration in commercial growth resets the multiple hard.",
+      "date_written": "2025-05-01",
+      "last_earnings": null
+    },
+    "RIVN": {
+      "company_name": "Rivian Automotive Inc.",
+      "sector": "EV / Innovation",
+      "bull_case": "Differentiated product and a commercial-van relationship provide a path to scale if unit economics improve.",
+      "bear_case": "Pre-profit and cash-burning; needs to reach positive gross margin before capital markets tighten.",
+      "date_written": "2025-05-01",
+      "last_earnings": null
+    }
+  }
+}

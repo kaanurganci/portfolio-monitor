@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "note": "SAMPLE seed for tools/migrate_state.py: per-ticker key KPIs, plus a couple of illustrative watch items and past decisions so a fresh clone produces a non-empty digest and scoreboard. All values are made up. Replace with your own."
+  },
+  "key_kpis": {
+    "AAPL": "services revenue growth, gross margin, installed-base upgrade cycle",
+    "MSFT": "Azure growth rate, AI monetisation, operating margin",
+    "GOOGL": "search ad revenue, Google Cloud growth, regulatory outcomes",
+    "AMZN": "AWS growth rate, advertising revenue, retail margin",
+    "NVDA": "data-centre revenue, gross margin, hyperscaler capex signals",
+    "AMD": "data-centre GPU/CPU share, gross margin, guidance",
+    "PLTR": "US commercial customer count and growth, government backlog",
+    "RIVN": "vehicle deliveries, gross margin, cash runway"
+  },
+  "watch_items": [
+    {
+      "ticker": "NVDA",
+      "description": "[NVDA-001] Next quarterly earnings — data-centre revenue and hyperscaler capex signal",
+      "reasoning": "The single biggest read-through for the whole AI-exposed sleeve (NVDA, AMD, MSFT, AMZN). A beat with maintained/raised capex guidance confirms the demand thesis; a miss or cautious guide is the most negative catalyst for all of them at once. ✅ = beat + capex guidance maintained or raised. ❌ = miss or guidance cut.",
+      "trigger_type": "date",
+      "trigger_value": "2026-11-19",
+      "trigger_query": "NVIDIA quarterly earnings data centre revenue guidance",
+      "status": "pending",
+      "added_at": "2025-08-01"
+    },
+    {
+      "ticker": "PLTR",
+      "description": "[PLTR-001] US commercial growth deceleration watch",
+      "reasoning": "The thesis rests on sustained 50%+ US commercial growth against an extreme multiple. Two consecutive quarters below 50% would break the growth story the valuation depends on. ✅ = growth stays above 50%. ❌ = below 50% for two consecutive quarters.",
+      "trigger_type": "event",
+      "trigger_query": "Palantir US commercial revenue growth quarterly",
+      "status": "pending",
+      "added_at": "2025-08-01"
+    }
+  ],
+  "decisions": [
+    {
+      "made_at": "2025-06-15",
+      "ticker": "NVDA",
+      "call_type": "earnings_recap",
+      "direction": "neutral",
+      "summary": "Sample entry: strong quarter, stock initially sold off on profit-taking then recovered. Logged as a non-directional alert.",
+      "reasoning": "Illustrative record showing how a neutral alert is logged and then auto-settled as 'ungradable' (alerts and both-sides recaps are excluded from the hit rate)."
+    },
+    {
+      "made_at": "2025-06-20",
+      "ticker": "AAPL",
+      "call_type": "valuation_note",
+      "direction": "bullish",
+      "summary": "Sample directional call: services mix shift argues the multiple is defensible over a 12-month horizon.",
+      "reasoning": "Illustrative record showing how a directional call is stored so the deterministic grader can score it against the benchmark once its horizon elapses.",
+      "horizon_days": 60
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "note": "SAMPLE invalidation/confirmation conditions. Each thesis carries >=2 invalidate + 1 confirm. Conditions with metric 'price:<YF_TICKER>' and a numeric threshold are machine-checked daily by daily_screen.py (T6); the rest are checked by the LLM at exception/monthly runs. Illustrative only — replace with your own.",
+    "imported_by": "tools/migrate_state.py --conditions"
+  },
+  "invalidation_conditions": [
+    {"ticker": "VOO", "side": "invalidate", "metric": "S&P 500 12m return vs FTSE All-World", "comparator": "<", "threshold": "-10pp", "window_desc": "checked at monthly reviews", "deadline": "2027-06-30"},
+    {"ticker": "VOO", "side": "invalidate", "metric": "price:VOO", "comparator": "<", "threshold": "380", "window_desc": "-25% drawdown forces an allocation review (buy-more vs structural break)"},
+    {"ticker": "VOO", "side": "confirm", "metric": "tracks the index within fee drag over 12m", "comparator": "<=", "threshold": "0.1%", "deadline": "2027-06-30"},
+
+    {"ticker": "VWRP", "side": "invalidate", "metric": "tracking difference vs FTSE All-World index", "comparator": ">", "threshold": "0.5%/yr", "deadline": "2027-06-30"},
+    {"ticker": "VWRP", "side": "invalidate", "metric": "price:VWRP.L", "comparator": "<", "threshold": "80", "window_desc": "-25% = global bear market; review contribution routing (opportunity, not exit)"},
+    {"ticker": "VWRP", "side": "confirm", "metric": "12m tracking within 0.3% of index", "comparator": "<=", "threshold": "0.3%", "deadline": "2027-06-30"},
+
+    {"ticker": "AAPL", "side": "invalidate", "metric": "services revenue growth YoY", "comparator": "<", "threshold": "8% for 2 consecutive quarters", "deadline": "2026-12-31"},
+    {"ticker": "AAPL", "side": "invalidate", "metric": "price:AAPL", "comparator": "<", "threshold": "150", "window_desc": "-30% forces re-underwrite"},
+    {"ticker": "AAPL", "side": "confirm", "metric": "services gross margin holds above 70%", "comparator": ">=", "threshold": "70%", "deadline": "2026-12-31"},
+
+    {"ticker": "NVDA", "side": "invalidate", "metric": "data-centre revenue QoQ", "comparator": "<", "threshold": "flat for 2 consecutive quarters", "deadline": "2026-12-31"},
+    {"ticker": "NVDA", "side": "invalidate", "metric": "price:NVDA", "comparator": "<", "threshold": "90", "window_desc": "-30% forces re-underwrite of the AI-demand thesis"},
+    {"ticker": "NVDA", "side": "confirm", "metric": "hyperscaler AI capex guidance maintained or raised", "comparator": ">=", "threshold": "maintained", "deadline": "2026-12-31"},
+
+    {"ticker": "PLTR", "side": "invalidate", "metric": "US commercial revenue growth YoY", "comparator": "<", "threshold": "50% for 2 consecutive quarters", "deadline": "2026-12-31"},
+    {"ticker": "PLTR", "side": "invalidate", "metric": "price:PLTR", "comparator": "<", "threshold": "24", "window_desc": "-40% forces re-underwrite (pre-profit-style volatility)"},
+    {"ticker": "PLTR", "side": "confirm", "metric": "commercial customer count keeps compounding", "comparator": ">=", "threshold": "current rate", "deadline": "2026-12-31"},
+
+    {"ticker": "RIVN", "side": "invalidate", "metric": "gross margin trajectory", "comparator": "<", "threshold": "still negative by Q4", "deadline": "2027-03-31"},
+    {"ticker": "RIVN", "side": "invalidate", "metric": "price:RIVN", "comparator": "<", "threshold": "8", "window_desc": "-40% forces re-underwrite of the path-to-scale thesis"},
+    {"ticker": "RIVN", "side": "confirm", "metric": "positive gross margin reached and sustained", "comparator": ">", "threshold": "0%", "deadline": "2027-03-31"}
+  ]
+}
