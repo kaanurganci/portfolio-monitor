@@ -8,10 +8,6 @@ the exact condition that would prove it wrong
 
 ## How it works
 
-I deliberately kept the data fetching, the math, and the LLM analysis completely separated:
-
-
-
 * **`fetch_data.py`**: Grabs live prices, FX, news, and earnings dates via `yfinance`. London tickers (`.L`) quote in pence, so this normalizes them to GBP. If a ticker fails, it fails *loudly*. There are no silent fallbacks to stale data.
 * **`fetch_fundamentals.py`**: Handles on-demand deep dives (income statements, balance sheets, cash flow, ratios) using `yfinance` and Alpha Vantage. I added a local cache so you don't blow through Alpha Vantage's free-tier limit of 25 requests/day.
 * **`compute_metrics.py`**: Handles all the portfolio math. Value, P&L, weights, sector breakdown, concentration flags, ETF allocation, and basic sanity checks. This is where the hard rules are enforced.
@@ -20,20 +16,19 @@ I deliberately kept the data fetching, the math, and the LLM analysis completely
 
 Reports get saved and dated in `analyses/`, `weekly/`, and `monthly/`. I actually use a separate Google Docs layer alongside this (for theses, catalyst logs, and decisions) so the system remembers its own past predictions, but that integration isn't included in this public repo.
 
-## The Decision Framework
+## How it decides what to flag
 
-* **Every claim carries its falsifier.** A thesis is stored with machine-checkable
-  invalidation and confirmation conditions (`metric`, `comparator`, `threshold`,
-  `deadline`). Price-level conditions written as `price:<TICKER>` are checked
-  automatically every day; the rest are checked at event or monthly runs. A view
-  with no falsifier is treated as no view.
-* **Both-sides framing**: The prompt rules forbid pure buy/sell instructions. If it flags something, it has to state *why you should look at it*, *why you shouldn't act*, and *what would change its mind*. 
-* **15% single-name cap**: If a single position hits 15% of the portfolio, it throws a flag (25% for paired theses). It just reports the concentration; it doesn't force a rebalance. (holdings with >0.7 90-day correlation are treated as one position)
-* **50% ETF floor**: ETFs are expected to make up at least half the portfolio. If the allocation drops below that, it suggests topping up with the next deposit rather than forcing a trade.
-* **Thesis-breaking signal > price noise**: A massive drop on zero news is usually just noise. A small drop on news that breaks the core thesis is the actual headline. The prompts are tuned to look for fundamental decay before a big drawdown happens.
-* **Three strict sell rules**: It evaluates every position against three questions: Have fundamentals deteriorated? Is it vastly overvalued? Are there better spots for the capital?
-* **No false precision**: It doesn't guess single-number price targets. It flags weird data instead of smoothing it out, and it has to cite sources for specific events.
+Every thesis has to say what would prove it wrong. I store invalidation and confirmation conditions as a metric, a comparator, a threshold and a deadline. Price conditions (written as `price:<TICKER>`) are checked every day, and everything else at the event or monthly runs. 
 
-Speculative names (which you can configure in `compute_metrics.py`) get wider day-move thresholds. They are noisy by nature, so I don't want routine volatility drowning out actual signal.
+The rules it works to:
+
+- It never just says buy or sell. If it flags something, it has to give the case for looking at it, the case for doing nothing, and what would change its mind.
+- Any single holding above 15% of the portfolio gets flagged (25% for paired theses). Holdings with a 90-day correlation above 0.7 count as one position. It reports the concentration but doesn't force a rebalance.
+- ETFs should make up at least half the portfolio. If they drop below that, it suggests putting the next deposit into them rather than selling anything.
+- News that breaks the thesis matters more than a big price move. A large drop with no news is usually noise. A small drop on news that undermines the reason I own something is the one to look at, so the prompts look for the fundamentals getting worse before the price does.
+- Every position gets checked against three sell questions: have the fundamentals got worse, is it badly overvalued, and is there a better use for the money?
+- It doesn't give single price targets, it flags odd data instead of smoothing it over, and it has to cite a source for any specific event.
+
+Speculative names (set in `compute_metrics.py`) get wider thresholds for daily moves. 
 
 
