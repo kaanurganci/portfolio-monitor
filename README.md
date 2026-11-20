@@ -4,12 +4,12 @@ This is a personal portfolio analysis tool I built to run with [Claude Code](htt
 The design goal is that an email should only ever arrive when it changes what I
 should do or believe, and that every view the system expresses is written down with
 the exact condition that would prove it wrong
-> **Note:** This is the public version. I've uploaded  a dummy portfolio and placeholder  holdings and API keys.
+> **Note:** This is the public version. I've uploaded a dummy portfolio, laceholder  holdings and API keys.
 
 ## How it works
 
 * **`fetch_data.py`**: Grabs live prices, FX, news, and earnings dates via `yfinance`. London tickers (`.L`) quote in pence, so this normalizes them to GBP. If a ticker fails, it fails *loudly*. There are no silent fallbacks to stale data.
-* **`fetch_fundamentals.py`**: Handles on-demand deep dives (income statements, balance sheets, cash flow, ratios) using `yfinance` and Alpha Vantage. I added a local cache so you don't blow through Alpha Vantage's free-tier limit of 25 requests/day.
+* **`fetch_fundamentals.py`**: Handles on-demand deep dives (income statements, balance sheets, cash flow, ratios) using `yfinance` and Alpha Vantage. 
 * **`compute_metrics.py`**: Handles all the portfolio math. Value, P&L, weights, sector breakdown, concentration flags, ETF allocation, and basic sanity checks. This is where the hard rules are enforced.
 * **`run_daily.py`**: The main orchestrator script. It fetches, computes, and dumps everything into `data/today.json`. All the Claude prompts read from this snapshot. It also notes data lineage (for instance, explicitly stating that GBP cost basis uses *current* FX, so FX and price moves are mixed together).
 * **`prompts/`**: The actual analysis instructions for Claude (`daily`, `weekly`, `monthly`, `bear`, `fundamentals`). These define the voice, structure, and hard rules. You run these directly inside Claude Code.
