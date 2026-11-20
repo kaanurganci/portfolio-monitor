@@ -8,16 +8,14 @@ The whole point is that an email should only turn up if it changes what I should
 
 ## How it works
 
-Python decides *whether* something happened. The model only works out *what it means*. That split is the main idea.
-
 **Python, no model involved:**
 
-* **`tools/fetch_portfolio_data.py`** — prices, FX and daily moves from `yfinance`. London tickers quote in pence, so those get converted to GBP. If a ticker fails it fails loudly. No quietly falling back to yesterday's price.
+* **`tools/fetch_portfolio_data.py`** — prices, FX and daily moves from `yfinance`. London tickers quote in pence, so those get converted to GBP. 
 * **`tools/portfolio_analytics.py`** — sector weights, and which holdings have been moving together over the last 90 days.
 * **`tools/risk_check.py`** — the six limits below.
-* **`tools/grade_decisions.py`** — scores old calls once the horizon I set at the time has passed, against a global tracker (`VWRP.L`). Beat it by more than 3% and it's right, lose by more than 3% and it's wrong, anything in between is partial. The model doesn't get to mark its own work.
+* **`tools/grade_decisions.py`** — scores old calls once the horizon I set at the time has passed, against a global tracker (`VWRP.L`). Beat it by more than 3% and it's right, lose by more than 3% and it's wrong, anything in between is partial.
 * **`tools/state_db.py`** — SQLite, and the only real record. The model never writes to it directly. It sends back changes in a fixed format and Python checks them first. Anything malformed gets thrown out rather than half-applied.
-* **`tools/daily_screen.py`** — the bit that actually runs daily. If none of the six triggers fire, it logs that it ran and stops. No email, no model, nothing.
+* **`tools/daily_screen.py`** — the bit that actually runs daily. If none of the six triggers fire, it logs that it ran and stops. 
 
 **The model:**
 
